@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/firstFragment"
-        android:name="com.github.mooncoders.jammed.ui.FirstFragment">
+        android:name="com.github.mooncoders.jammed.ui.MapFragment">
     </fragment>
 
 </navigation>
