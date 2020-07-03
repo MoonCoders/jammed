@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Jammed</string>
     <string name="title_activity_maps">Map</string>
+    <string name="explore">Explore</string>
+    <string name="saved">Saved</string>
+    <string name="places">Places</string>
+    <string name="more">More</string>
 </resources>
