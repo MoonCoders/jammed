@@ -12,6 +12,6 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        sdk = JammedSdk(this, "https://tbd")
+        sdk = JammedSdk(this, "https://hackathon.tim.it/")
     }
 }

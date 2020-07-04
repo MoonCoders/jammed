@@ -1,5 +1,6 @@
-package com.github.mooncoders.jammed.sdk
+package com.github.mooncoders.jammed.sdk.models
 
+import com.github.mooncoders.jammed.sdk.models.CrowdIndicator
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 

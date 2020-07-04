@@ -1,4 +1,4 @@
-package com.github.mooncoders.jammed.sdk
+package com.github.mooncoders.jammed.sdk.models
 
 data class PointsOfInterestParams(
     val latitude: Double,

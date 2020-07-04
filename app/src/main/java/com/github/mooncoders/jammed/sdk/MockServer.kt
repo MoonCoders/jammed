@@ -1,5 +1,8 @@
 package com.github.mooncoders.jammed.sdk
 
+import com.github.mooncoders.jammed.sdk.models.CrowdIndicator
+import com.github.mooncoders.jammed.sdk.models.PointOfInterest
+import com.github.mooncoders.jammed.sdk.models.PointsOfInterestParams
 import kotlin.math.cos
 import kotlin.math.sin
 import kotlin.math.sqrt
@@ -16,6 +19,9 @@ class MockServer {
         return Pair(latitude, longitude)
     }
 
+    private fun gitHubRaw(file: String) =
+        "https://raw.githubusercontent.com/MoonCoders/resources/master/$file"
+
     fun getPointsOfInterest(params: PointsOfInterestParams): List<PointOfInterest> {
         return listOf(
             getRandomLocation(params).let {
@@ -24,8 +30,8 @@ class MockServer {
                     latitude = it.first,
                     longitude = it.second,
                     squareMeters = 10.0,
-                    image = "",
-                    video = "https://github.com/MoonCoders/resources/blob/master/punta_celesi.mp4?raw=true",
+                    image = gitHubRaw("punta_celesi.jpg"),
+                    video = gitHubRaw("punta_celesi.mp4"),
                     crowdIndicator = CrowdIndicator.High
                 )
             },
@@ -35,8 +41,8 @@ class MockServer {
                     latitude = it.first,
                     longitude = it.second,
                     squareMeters = 20.0,
-                    image = "",
-                    video = "https://github.com/MoonCoders/resources/blob/master/duomo_firenze.mp4?raw=true",
+                    image = gitHubRaw("duomo_firenze.jpg"),
+                    video = gitHubRaw("duomo_firenze.mp4"),
                     crowdIndicator = CrowdIndicator.Low
                 )
             },
@@ -46,8 +52,8 @@ class MockServer {
                     latitude = it.first,
                     longitude = it.second,
                     squareMeters = 30.0,
-                    image = "",
-                    video = "https://github.com/MoonCoders/resources/blob/master/fontana_trevi.mp4?raw=true",
+                    image = gitHubRaw("fontana_trevi.jpg"),
+                    video = gitHubRaw("fontana_trevi.mp4"),
                     crowdIndicator = CrowdIndicator.Low
                 )
             },
@@ -57,8 +63,8 @@ class MockServer {
                     latitude = it.first,
                     longitude = it.second,
                     squareMeters = 40.0,
-                    image = "",
-                    video = "https://github.com/MoonCoders/resources/blob/master/amalfi.mp4?raw=true",
+                    image = gitHubRaw("amalfi.jpg"),
+                    video = gitHubRaw("amalfi.mp4"),
                     crowdIndicator = CrowdIndicator.Medium
                 )
             }

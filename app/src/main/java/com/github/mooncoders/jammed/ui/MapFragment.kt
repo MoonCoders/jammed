@@ -2,7 +2,6 @@ package com.github.mooncoders.jammed.ui
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.graphics.Point
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
@@ -12,7 +11,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.github.mooncoders.jammed.R
-import com.github.mooncoders.jammed.sdk.PointsOfInterestParams
+import com.github.mooncoders.jammed.sdk.models.PointsOfInterestParams
 import com.github.mooncoders.jammed.ui.foundation.BaseFragment
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
