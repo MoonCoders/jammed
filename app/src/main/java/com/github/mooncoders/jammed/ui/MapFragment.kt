@@ -13,6 +13,7 @@ import android.widget.RelativeLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.github.mooncoders.jammed.R
+import com.github.mooncoders.jammed.sdk.extensions.marker
 import com.github.mooncoders.jammed.sdk.models.PointsOfInterestParams
 import com.github.mooncoders.jammed.ui.foundation.BaseFragment
 import com.google.android.gms.common.api.Status
