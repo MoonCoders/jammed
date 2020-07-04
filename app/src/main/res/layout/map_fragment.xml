@@ -33,7 +33,9 @@
                 android:layout_height="wrap_content" />
 
         </com.google.android.material.card.MaterialCardView>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <include layout="@layout/place_info_sheet" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

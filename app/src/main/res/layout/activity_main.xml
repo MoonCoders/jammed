@@ -16,8 +16,6 @@
         app:defaultNavHost="true"
         app:navGraph="@navigation/nav_graph" />
 
-    <include layout="@layout/place_info_sheet" />
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav_bar"
         style="@style/Widget.MaterialComponents.BottomNavigationView.Colored"

@@ -1,11 +1,16 @@
 <resources>
     <string name="app_name">Jammed</string>
-    <string name="title_activity_maps">Map</string>
-    <string name="explore">Explore</string>
-    <string name="saved">Saved</string>
-    <string name="places">Places</string>
-    <string name="more">More</string>
-    <string name="live">Live</string>
-    <string name="beach">Beach</string>
-    <string name="tourist">Tourist Attraction</string>
+    <string name="title_activity_maps">Mappa</string>
+    <string name="explore">Esplora</string>
+    <string name="saved">Preferiti</string>
+    <string name="places">Località</string>
+    <string name="more">Altro</string>
+    <string name="live">Guarda ora</string>
+    <string name="beach">Spiaggia</string>
+    <string name="directions">Indicazioni</string>
+    <string name="save">Salva</string>
+    <string name="tourist">Attrazione turistica</string>
+    <string name="low_crowdness">BASSA affluenza</string>
+    <string name="mid_crowdness">MEDIA affluenza</string>
+    <string name="hi_crowdness">ALTA affluenza</string>
 </resources>

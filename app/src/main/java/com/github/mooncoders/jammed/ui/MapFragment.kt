@@ -5,17 +5,27 @@ import android.annotation.SuppressLint
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.view.ContextThemeWrapper
+import androidx.core.content.ContextCompat.getDrawable
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.github.mooncoders.jammed.R
 import com.github.mooncoders.jammed.sdk.extensions.marker
+import com.github.mooncoders.jammed.sdk.models.CrowdIndicator
+import com.github.mooncoders.jammed.sdk.models.PlaceCategory
 import com.github.mooncoders.jammed.sdk.models.PointOfInterest
 import com.github.mooncoders.jammed.sdk.models.PointsOfInterestParams
 import com.github.mooncoders.jammed.ui.foundation.changeMyLocationButtonMargin
+import com.github.mooncoders.jammed.ui.foundation.getDirections
+import com.github.mooncoders.jammed.ui.foundation.openUrl
 import com.google.android.gms.common.api.Status
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -31,11 +41,16 @@ import com.google.android.libraries.places.api.net.PlacesClient
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.chip.Chip
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import com.livinglifetechway.quickpermissions_kotlin.util.QuickPermissionsOptions
+import kotlinx.android.synthetic.main.place_info_sheet.*
 
 
 class MapFragment : Fragment(), OnMapReadyCallback {
+
+    private lateinit var bottomSheetBehavior: BottomSheetBehavior<*>
 
     private val viewModel by lazy {
         ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
@@ -137,7 +152,8 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             success.observe(viewLifecycleOwner, Observer { pointsOfInterest ->
                 mMap?.also { map ->
                     pointsOfInterest.forEach { pointOfInterest ->
-                        map.addMarker(pointOfInterest.marker(requireContext())).tag = pointOfInterest
+                        map.addMarker(pointOfInterest.marker(requireContext())).tag =
+                            pointOfInterest
                     }
                 }
             })
@@ -156,6 +172,19 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 Log.e("TAG", "Error", it)
             })
         }
+
+        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
+        bottomSheetBehavior.addBottomSheetCallback(object :
+            BottomSheetBehavior.BottomSheetCallback() {
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+                if (preview.visibility == View.VISIBLE && slideOffset >= 0)
+                    preview.alpha = slideOffset
+            }
+
+            override fun onStateChanged(bottomSheet: View, newState: Int) = Unit
+        })
+
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
     }
 
     /**
@@ -180,8 +209,96 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             }
         }
 
+
         // Turn on the My Location layer and the related control on the map.
         updateLocation()
+
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+
+        viewModel.selectedPointOfInterest.observe(this, Observer { selectedPoi ->
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+            bottom_sheet_title.text = selectedPoi.title
+            bottom_sheet_title.gravity = Gravity.LEFT
+            bottom_sheet_subtitle.text = selectedPoi.address
+
+            chips.removeAllViews()
+
+            live.setOnClickListener {
+                requireActivity().openUrl(selectedPoi.provider.liveUrl)
+            }
+
+            when (selectedPoi.crowdIndicator) {
+                CrowdIndicator.Low -> {
+                    crowdness.setImageResource(R.drawable.ic_marker_low)
+                    crowdness_details.setText(R.string.low_crowdness)
+                }
+                CrowdIndicator.Medium -> {
+                    crowdness.setImageResource(R.drawable.ic_marker_mid)
+                    crowdness_details.setText(R.string.mid_crowdness)
+                }
+                CrowdIndicator.High -> {
+                    crowdness.setImageResource(R.drawable.ic_marker_high)
+                    crowdness_details.setText(R.string.hi_crowdness)
+                }
+            }
+
+            selectedPoi.categories.forEach {
+                val chip =
+                    Chip(
+                        ContextThemeWrapper(
+                            requireContext(),
+                            R.style.Widget_MaterialComponents_Chip_Action
+                        )
+                    )
+                when (it) {
+                    PlaceCategory.Beach -> {
+                        chip.text = getString(R.string.beach)
+                        chip.chipIcon = getDrawable(requireContext(), R.drawable.ic_beach)
+                    }
+                    PlaceCategory.TouristAttraction -> {
+                        chip.text = getString(R.string.tourist)
+                        chip.chipIcon = getDrawable(requireContext(), R.drawable.ic_flag)
+                    }
+                }
+                chip.setOnClickListener { findNavController().navigate(R.id.saved) }
+                chips.addView(chip)
+            }
+
+            chips.addView(Chip(
+                ContextThemeWrapper(
+                    requireContext(),
+                    R.style.Widget_MaterialComponents_Chip_Action
+                )
+            ).apply {
+                text = getString(R.string.directions)
+                chipIcon = getDrawable(requireContext(), R.drawable.ic_directions)
+                setOnClickListener {
+                    lastKnownLocation?.let {
+                        requireActivity().getDirections(
+                            LatLng(it.latitude, it.longitude),
+                            LatLng(selectedPoi.latitude, selectedPoi.longitude)
+                        )
+                    }
+                }
+            })
+
+            chips.addView(Chip(
+                ContextThemeWrapper(
+                    requireContext(),
+                    R.style.Widget_MaterialComponents_Chip_Action
+                )
+            ).apply {
+                text = getString(R.string.save)
+                chipIcon = getDrawable(requireContext(), R.drawable.ic_saved)
+                setOnClickListener { findNavController().navigate(R.id.saved) }
+            })
+
+
+            Glide.with(this).load(selectedPoi.provider.imageUrl).into(preview)
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+            preview.visibility = View.VISIBLE
+        })
+
     }
 
     @SuppressLint("MissingPermission")

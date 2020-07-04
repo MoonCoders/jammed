@@ -24,7 +24,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/preview">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
@@ -35,7 +35,10 @@
                 android:layout_width="@dimen/drag_line_width"
                 android:layout_height="@dimen/drag_line_height"
                 android:layout_gravity="center_horizontal"
-                android:background="@drawable/drag_line" />
+                android:background="@drawable/drag_line"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/bottom_sheet_title"
@@ -44,15 +47,21 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="@dimen/space8"
-                android:text="@string/explore" />
+                android:text="@string/explore"
+                app:layout_constraintTop_toBottomOf="@id/drag_line" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/bottom_sheet_subtitle"
                 style="@style/TextAppearance.MaterialComponents.Caption"
                 android:layout_width="match_parent"
-                android:textSize="14sp"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/space8" />
+                android:paddingStart="@dimen/space8"
+                android:paddingLeft="@dimen/space8"
+                android:paddingEnd="@dimen/space8"
+                android:paddingRight="@dimen/space8"
+                android:paddingBottom="@dimen/space8"
+                android:textSize="14sp"
+                app:layout_constraintTop_toBottomOf="@id/bottom_sheet_title" />
 
             <View
                 android:id="@+id/separator"
@@ -60,18 +69,75 @@
                 android:layout_height="@dimen/separatorHeight"
                 android:layout_marginStart="@dimen/space4"
                 android:layout_marginLeft="@dimen/space4"
+                android:layout_marginTop="@dimen/space4"
                 android:layout_marginEnd="@dimen/space4"
                 android:layout_marginRight="@dimen/space4"
-                android:background="?attr/colorButtonNormal" />
+                android:background="?attr/colorButtonNormal"
+                app:layout_constraintTop_toBottomOf="@id/bottom_sheet_subtitle" />
 
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/chips"
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/crowdness"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:layout_marginStart="@dimen/space4"
+                android:layout_marginLeft="@dimen/space4"
+                android:layout_marginTop="@dimen/space16"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/separator"
+                app:riv_corner_radius="8dp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/crowdness_details"
+                style="@style/TextAppearance.MaterialComponents.Headline6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space16"
+                android:layout_marginLeft="@dimen/space16"
+                android:text="@string/low_crowdness"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/crowdness"
+                app:layout_constraintTop_toTopOf="@+id/crowdness" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/live"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space16"
+                android:text="@string/live"
+                android:textColor="@color/live_text"
+                app:chipBackgroundColor="@color/live_background"
+                app:chipIcon="@drawable/ic_live"
+                app:chipMinTouchTargetSize="0dp"
+                app:layout_constraintBottom_toBottomOf="@+id/crowdness"
+                app:layout_constraintStart_toEndOf="@+id/crowdness" />
+
+            <View
+                android:id="@+id/separator2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="@dimen/separatorHeight"
+                android:layout_marginStart="@dimen/space4"
+                android:layout_marginLeft="@dimen/space4"
+                android:layout_marginTop="@dimen/space16"
+                android:layout_marginEnd="@dimen/space4"
+                android:layout_marginRight="@dimen/space4"
+                android:background="?attr/colorButtonNormal"
+                app:layout_constraintTop_toBottomOf="@id/crowdness" />
 
-            </com.google.android.material.chip.ChipGroup>
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"
+                app:layout_constraintTop_toBottomOf="@id/separator2">
 
-
-        </LinearLayout>
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chips"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space8" />
+            </HorizontalScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

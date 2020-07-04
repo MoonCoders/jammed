@@ -1,6 +1,7 @@
 package com.github.mooncoders.jammed.ui.foundation
 
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -9,12 +10,13 @@ import android.net.Uri
 import android.util.Log
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
-import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.DrawableCompat
+import androidx.fragment.app.FragmentActivity
 import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.LatLng
 
 
 /**
@@ -39,7 +41,7 @@ fun Context.vectorToBitmap(@DrawableRes id: Int, @ColorInt color: Int? = null): 
     return BitmapDescriptorFactory.fromBitmap(bitmap)
 }
 
-fun AppCompatActivity.openUrl(url: String) {
+fun FragmentActivity.openUrl(url: String) {
     try {
         CustomTabsIntent.Builder().build().apply {
             packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
@@ -50,4 +52,12 @@ fun AppCompatActivity.openUrl(url: String) {
     } catch (exception: Throwable) {
         Log.e("TAG", "Error while opening browser on URL: $url", exception)
     }
+}
+
+fun FragmentActivity.getDirections(from: LatLng, to: LatLng) {
+    val intent = Intent(
+        Intent.ACTION_VIEW,
+        Uri.parse("http://maps.google.com/maps?saddr=${from.latitude},${from.longitude}&daddr=${to.latitude},${to.longitude}")
+    )
+    startActivity(intent)
 }

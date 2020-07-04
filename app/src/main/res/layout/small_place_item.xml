@@ -29,22 +29,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chips"
+        <HorizontalScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:scrollbars="none">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/live"
-                style="@style/Widget.MaterialComponents.Chip.Action"
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chips"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/live"
-                android:textColor="@color/live_text"
-                app:chipBackgroundColor="@color/live_background"
-                app:chipIcon="@drawable/ic_live" />
+                android:layout_height="wrap_content">
 
-        </com.google.android.material.chip.ChipGroup>
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/live"
+                    style="@style/Widget.MaterialComponents.Chip.Action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/live"
+                    android:textColor="@color/live_text"
+                    app:chipBackgroundColor="@color/live_background"
+                    app:chipIcon="@drawable/ic_live" />
+
+            </com.google.android.material.chip.ChipGroup>
+        </HorizontalScrollView>
 
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>
