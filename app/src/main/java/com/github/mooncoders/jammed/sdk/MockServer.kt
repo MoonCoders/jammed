@@ -29,6 +29,7 @@ class MockServer {
                     longitude = it.second,
                     squareMeters = 10.0,
                     crowdIndicator = CrowdIndicator.High,
+                    categories = listOf(PlaceCategory.Beach),
                     provider = Provider(
                         name = "Skyline",
                         imageUrl = gitHubRaw("punta_celesi.jpg"),
@@ -49,6 +50,7 @@ class MockServer {
                     longitude = it.second,
                     squareMeters = 20.0,
                     crowdIndicator = CrowdIndicator.Low,
+                    categories = listOf(PlaceCategory.TouristAttraction),
                     provider = Provider(
                         name = "Skyline",
                         imageUrl = gitHubRaw("duomo_firenze.jpg"),
@@ -69,6 +71,7 @@ class MockServer {
                     longitude = it.second,
                     squareMeters = 30.0,
                     crowdIndicator = CrowdIndicator.Low,
+                    categories = listOf(PlaceCategory.TouristAttraction),
                     provider = Provider(
                         name = "Skyline",
                         imageUrl = gitHubRaw("fontana_trevi.jpg"),
@@ -89,6 +92,7 @@ class MockServer {
                     longitude = it.second,
                     squareMeters = 40.0,
                     crowdIndicator = CrowdIndicator.Medium,
+                    categories = listOf(PlaceCategory.TouristAttraction),
                     provider = Provider(
                         name = "Lega Navale",
                         imageUrl = gitHubRaw("amalfi.jpg"),

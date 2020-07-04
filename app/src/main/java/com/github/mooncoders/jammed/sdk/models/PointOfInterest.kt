@@ -19,5 +19,6 @@ data class PointOfInterest(
     val squareMeters: Double, // valore nominale secondo planimetria
     val advertising: Advertising,
     val provider: Provider,
-    val crowdIndicator: CrowdIndicator
+    val crowdIndicator: CrowdIndicator,
+    val categories: List<PlaceCategory>
 )
