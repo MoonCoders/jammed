@@ -8,8 +8,4 @@
         android:id="@+id/mapFragment"
         android:name="com.github.mooncoders.jammed.ui.MapFragment" />
 
-    <fragment
-        android:id="@+id/savedFragment"
-        android:name="com.github.mooncoders.jammed.ui.SavedFragment" />
-
 </navigation>

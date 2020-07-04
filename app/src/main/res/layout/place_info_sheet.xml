@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/bottomSheet"
     android:layout_width="match_parent"
@@ -7,71 +8,70 @@
     app:behavior_halfExpandedRatio="0.4"
     app:behavior_hideable="true"
     app:behavior_peekHeight="@dimen/peek_height"
-    app:cardCornerRadius="@dimen/space8"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
-    <LinearLayout
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/preview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="@dimen/space16">
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <View
-            android:id="@+id/drag_line"
-            android:layout_width="@dimen/drag_line_width"
-            android:layout_height="@dimen/drag_line_height"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/drag_line" />
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:cardCornerRadius="@dimen/space8"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/preview">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/bottom_sheet_title"
-            style="@style/TextAppearance.MaterialComponents.Headline5"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="@dimen/space8"
-            android:text="@string/explore" />
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="@dimen/space16">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/bottom_sheet_subtitle"
-            style="@style/TextAppearance.MaterialComponents.Subtitle1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/space8" />
+            <View
+                android:id="@+id/drag_line"
+                android:layout_width="@dimen/drag_line_width"
+                android:layout_height="@dimen/drag_line_height"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/drag_line" />
 
-        <View
-            android:id="@+id/separator"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/separatorHeight"
-            android:layout_marginStart="@dimen/space4"
-            android:layout_marginLeft="@dimen/space4"
-            android:layout_marginEnd="@dimen/space4"
-            android:layout_marginRight="@dimen/space4"
-            android:background="?attr/colorButtonNormal" />
-
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chips"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/live"
-                style="@style/Widget.MaterialComponents.Chip.Action"
-                android:layout_width="wrap_content"
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/bottom_sheet_title"
+                style="@style/TextAppearance.MaterialComponents.Headline6"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/live"
-                android:textColor="@color/live_text"
-                app:chipBackgroundColor="@color/live_background"
-                app:chipIcon="@drawable/ic_live" />
+                android:gravity="center"
+                android:padding="@dimen/space8"
+                android:text="@string/explore" />
 
-        </com.google.android.material.chip.ChipGroup>
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/bottom_sheet_subtitle"
+                style="@style/TextAppearance.MaterialComponents.Caption"
+                android:layout_width="match_parent"
+                android:textSize="14sp"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/space8" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/preview"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:src="@drawable/ic_map" />
+            <View
+                android:id="@+id/separator"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/separatorHeight"
+                android:layout_marginStart="@dimen/space4"
+                android:layout_marginLeft="@dimen/space4"
+                android:layout_marginEnd="@dimen/space4"
+                android:layout_marginRight="@dimen/space4"
+                android:background="?attr/colorButtonNormal" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chips"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </com.google.android.material.chip.ChipGroup>
 
 
-    </LinearLayout>
-</com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
