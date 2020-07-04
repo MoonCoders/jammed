@@ -1,6 +1,7 @@
 package com.github.mooncoders.jammed.sdk
 
 import android.app.Application
+import android.location.Location
 import com.github.mooncoders.jammed.BuildConfig
 import com.github.mooncoders.jammed.sdk.helpers.Iso8601DateTimeTypeAdapter
 import com.github.mooncoders.jammed.sdk.helpers.UserAgentInterceptor
@@ -39,6 +40,8 @@ class JammedSdk(
         .build()
         .create(TimAPI::class.java)
 
+    private val server = MockServer()
+
     suspend fun getNumberOfPedestrians(pointOfInterest: PointOfInterest): Int {
         return when {
             (pointOfInterest.image == "spiaggia_affollata.jpg") -> {
@@ -48,7 +51,7 @@ class JammedSdk(
         }
     }
 
-    suspend fun getPointsOfInterest(): List<PointOfInterest> {
-        return emptyList()
+    suspend fun getPointsOfInterest(params: PointsOfInterestParams): List<PointOfInterest> {
+        return server.getPointsOfInterest(params)
     }
 }

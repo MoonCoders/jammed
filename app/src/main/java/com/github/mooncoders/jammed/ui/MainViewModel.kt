@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.mooncoders.jammed.App
 import com.github.mooncoders.jammed.sdk.PointOfInterest
+import com.github.mooncoders.jammed.sdk.PointsOfInterestParams
 import com.github.mooncoders.jammed.ui.foundation.CoroutineFetcher
 import com.github.mooncoders.jammed.ui.foundation.fetcher
 
@@ -13,7 +14,8 @@ class MainViewModel : ViewModel() {
         App.sdk.getNumberOfPedestrians(image)
     }
 
-    val pointsOfInterest = fetcher {
-        App.sdk.getPointsOfInterest()
-    }
+    val pointsOfInterest =
+        CoroutineFetcher<PointsOfInterestParams, List<PointOfInterest>>(viewModelScope) {
+            App.sdk.getPointsOfInterest(it)
+        }
 }

@@ -2,6 +2,7 @@ package com.github.mooncoders.jammed.ui
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.graphics.Point
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
@@ -11,6 +12,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.github.mooncoders.jammed.R
+import com.github.mooncoders.jammed.sdk.PointsOfInterestParams
 import com.github.mooncoders.jammed.ui.foundation.BaseFragment
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -47,9 +49,11 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     // not granted.
     private val defaultLocation = LatLng(45.464664, 9.188540)
 
+    // Radius in meters around the location
+    private val radiusInMeters = 50
+
     // The entry point to the Places API.
     private lateinit var placesClient: PlacesClient
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -57,9 +61,26 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         savedInstanceState: Bundle?
     ) = inflater.inflate(R.layout.map_fragment, container, false)
 
+    private fun currentLocation() : PointsOfInterestParams {
+        val location = lastKnownLocation
+
+        return if (location == null) {
+            PointsOfInterestParams(
+                latitude = defaultLocation.latitude,
+                longitude = defaultLocation.longitude,
+                radius = radiusInMeters
+            )
+        } else {
+            PointsOfInterestParams(
+                latitude = location.latitude,
+                longitude = location.longitude,
+                radius = radiusInMeters
+            )
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
         // Retrieve location and camera position from saved instance state.
         if (savedInstanceState != null) {
@@ -83,14 +104,14 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
 
         viewModel.pointsOfInterest.apply {
             success.observe(viewLifecycleOwner, Observer { pointsOfInterest ->
-                // TODO draw on map
+                pointsOfInterest.forEach { pointOfInterest ->
+                    mMap.addMarker(pointOfInterest.marker())
+                }
             })
 
             error.observe(viewLifecycleOwner, Observer {
                 Log.e("TAG", "Error", it)
             })
-
-            fetch(Unit)
         }
 
         viewModel.pedestriansFetcher.apply {
@@ -118,6 +139,8 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
+
+        viewModel.pointsOfInterest.fetch(currentLocation())
 
         // Turn on the My Location layer and the related control on the map.
         updateLocation()
