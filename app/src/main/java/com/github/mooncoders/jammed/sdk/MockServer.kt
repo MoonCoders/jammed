@@ -41,6 +41,29 @@ class MockServer {
                         brand = "Kelly Cannoli",
                         iconUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTSTt4uzOUMnvBIOJE_9YXNZCzGbL5RbFoUxA&usqp=CAU",
                         headline = "La tradizione palermitana"
+                    ),
+                    affluence = linkedMapOf(
+                        DayOfWeek.Monday to listOf(
+                            CrowdIndicator.Low, CrowdIndicator.Medium, CrowdIndicator.Low
+                        ),
+                        DayOfWeek.Tuesday to listOf(
+                            CrowdIndicator.Low, CrowdIndicator.Medium, CrowdIndicator.Low
+                        ),
+                        DayOfWeek.Wednesday to listOf(
+                            CrowdIndicator.Low, CrowdIndicator.Medium, CrowdIndicator.Low
+                        ),
+                        DayOfWeek.Thursday to listOf(
+                            CrowdIndicator.Low, CrowdIndicator.Medium, CrowdIndicator.Low
+                        ),
+                        DayOfWeek.Friday to listOf(
+                            CrowdIndicator.Low, CrowdIndicator.Medium, CrowdIndicator.Low
+                        ),
+                        DayOfWeek.Saturday to listOf(
+                            CrowdIndicator.Medium, CrowdIndicator.High, CrowdIndicator.Medium
+                        ),
+                        DayOfWeek.Sunday to listOf(
+                            CrowdIndicator.Medium, CrowdIndicator.High, CrowdIndicator.Medium
+                        )
                     )
                 )
             },
@@ -63,6 +86,29 @@ class MockServer {
                         brand = "Antica Osteria",
                         iconUrl = "https://www.ondesign.de/files/website-elemente/Projekte/slideshow-logos/portfolio-slideshow-logo-23.jpg",
                         headline = "Le fiorentine gustose"
+                    ),
+                    affluence = linkedMapOf(
+                        DayOfWeek.Monday to listOf(
+                            CrowdIndicator.Low, CrowdIndicator.Medium, CrowdIndicator.Low
+                        ),
+                        DayOfWeek.Tuesday to listOf(
+                            CrowdIndicator.Low, CrowdIndicator.Medium, CrowdIndicator.Low
+                        ),
+                        DayOfWeek.Wednesday to listOf(
+                            CrowdIndicator.Low, CrowdIndicator.High, CrowdIndicator.Medium
+                        ),
+                        DayOfWeek.Thursday to listOf(
+                            CrowdIndicator.Low, CrowdIndicator.High, CrowdIndicator.Medium
+                        ),
+                        DayOfWeek.Friday to listOf(
+                            CrowdIndicator.Low, CrowdIndicator.Medium, CrowdIndicator.Low
+                        ),
+                        DayOfWeek.Saturday to listOf(
+                            CrowdIndicator.Low, CrowdIndicator.High, CrowdIndicator.Medium
+                        ),
+                        DayOfWeek.Sunday to listOf(
+                            CrowdIndicator.Low, CrowdIndicator.High, CrowdIndicator.Medium
+                        )
                     )
                 )
             },
@@ -85,6 +131,29 @@ class MockServer {
                         brand = "SuperTech",
                         iconUrl = "https://icon-library.com/images/small-camera-icon/small-camera-icon-1.jpg",
                         headline = "Scatta anche tu splendide foto"
+                    ),
+                    affluence = linkedMapOf(
+                        DayOfWeek.Monday to listOf(
+                            CrowdIndicator.Low, CrowdIndicator.Medium, CrowdIndicator.Low
+                        ),
+                        DayOfWeek.Tuesday to listOf(
+                            CrowdIndicator.Low, CrowdIndicator.Medium, CrowdIndicator.Low
+                        ),
+                        DayOfWeek.Wednesday to listOf(
+                            CrowdIndicator.Low, CrowdIndicator.High, CrowdIndicator.Medium
+                        ),
+                        DayOfWeek.Thursday to listOf(
+                            CrowdIndicator.Low, CrowdIndicator.High, CrowdIndicator.Medium
+                        ),
+                        DayOfWeek.Friday to listOf(
+                            CrowdIndicator.Low, CrowdIndicator.Medium, CrowdIndicator.Low
+                        ),
+                        DayOfWeek.Saturday to listOf(
+                            CrowdIndicator.Low, CrowdIndicator.High, CrowdIndicator.Medium
+                        ),
+                        DayOfWeek.Sunday to listOf(
+                            CrowdIndicator.Low, CrowdIndicator.High, CrowdIndicator.Medium
+                        )
                     )
                 )
             },
@@ -107,6 +176,29 @@ class MockServer {
                         brand = "Gelateria Scoop",
                         iconUrl = "https://cdn.dribbble.com/users/3659972/screenshots/6698848/scoooop.jpg",
                         headline = "Gusta il tuo gelato con la vista mozzafiato"
+                    ),
+                    affluence = linkedMapOf(
+                        DayOfWeek.Monday to listOf(
+                            CrowdIndicator.Low, CrowdIndicator.Medium, CrowdIndicator.Low
+                        ),
+                        DayOfWeek.Tuesday to listOf(
+                            CrowdIndicator.Low, CrowdIndicator.Medium, CrowdIndicator.Low
+                        ),
+                        DayOfWeek.Wednesday to listOf(
+                            CrowdIndicator.Low, CrowdIndicator.High, CrowdIndicator.Medium
+                        ),
+                        DayOfWeek.Thursday to listOf(
+                            CrowdIndicator.Low, CrowdIndicator.High, CrowdIndicator.Medium
+                        ),
+                        DayOfWeek.Friday to listOf(
+                            CrowdIndicator.Low, CrowdIndicator.Medium, CrowdIndicator.Low
+                        ),
+                        DayOfWeek.Saturday to listOf(
+                            CrowdIndicator.Low, CrowdIndicator.High, CrowdIndicator.Medium
+                        ),
+                        DayOfWeek.Sunday to listOf(
+                            CrowdIndicator.Low, CrowdIndicator.High, CrowdIndicator.Medium
+                        )
                     )
                 )
             }

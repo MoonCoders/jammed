@@ -21,5 +21,6 @@ data class PointOfInterest(
     val advertising: Advertising,
     val provider: Provider,
     val crowdIndicator: CrowdIndicator,
-    val categories: List<PlaceCategory>
+    val categories: List<PlaceCategory>,
+    val affluence: LinkedHashMap<DayOfWeek, List<CrowdIndicator>>
 )
