@@ -91,7 +91,7 @@ class MockServer {
             getRandomLocation(params).let {
                 PointOfInterest(
                     title = "Piazza del Duomo",
-                    address = "84011 Amalfi SA",
+                    address = "84011 Amalfi",
                     latitude = it.first,
                     longitude = it.second,
                     squareMeters = 40.0,
