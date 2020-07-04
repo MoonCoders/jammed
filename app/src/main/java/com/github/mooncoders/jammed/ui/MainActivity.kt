@@ -40,12 +40,13 @@ class MainActivity : AppCompatActivity() {
             override fun onStateChanged(bottomSheet: View, newState: Int) = Unit
         })
 
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+
         bottom_nav_bar.setOnNavigationItemSelectedListener { item ->
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
             when (item.itemId) {
                 R.id.explore -> {
-                    bottom_sheet_title.text = getString(R.string.explore)
-                    bottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
+                    bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
                 }
                 R.id.saved -> {
                     bottom_sheet_title.text = getString(R.string.saved)
