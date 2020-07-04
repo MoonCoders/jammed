@@ -130,7 +130,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
      */
     // [START maps_current_place_on_save_instance_state]
     override fun onSaveInstanceState(outState: Bundle) {
-        ::mMap.isInitialized.takeIf { true }?.let {
+        ::mMap.isInitialized.takeIf { it }?.let {
             outState.putParcelable(KEY_CAMERA_POSITION, mMap.cameraPosition)
             outState.putParcelable(KEY_LOCATION, lastKnownLocation)
         }
