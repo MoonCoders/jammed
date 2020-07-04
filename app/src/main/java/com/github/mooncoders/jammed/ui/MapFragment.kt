@@ -41,7 +41,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
     }
 
-    private lateinit var mMap: GoogleMap
+    private var mMap: GoogleMap? = null
 
     // The geographical location where the device is currently located. That is, the last-known
     // location retrieved by the Fused Location Provider.
@@ -117,7 +117,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         // Set up a PlaceSelectionListener to handle the response.
         autocompleteFragment.setOnPlaceSelectedListener(object : PlaceSelectionListener {
             override fun onPlaceSelected(place: Place) {
-                mMap.moveCamera(
+                mMap?.moveCamera(
                     CameraUpdateFactory.newLatLngZoom(
                         place.latLng,
                         DEFAULT_ZOOM.toFloat()
@@ -135,8 +135,10 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
         viewModel.pointsOfInterest.apply {
             success.observe(viewLifecycleOwner, Observer { pointsOfInterest ->
-                pointsOfInterest.forEach { pointOfInterest ->
-                    mMap.addMarker(pointOfInterest.marker(requireContext())).tag = pointOfInterest
+                mMap?.also { map ->
+                    pointsOfInterest.forEach { pointOfInterest ->
+                        map.addMarker(pointOfInterest.marker(requireContext())).tag = pointOfInterest
+                    }
                 }
             })
 
@@ -161,8 +163,8 @@ class MapFragment : Fragment(), OnMapReadyCallback {
      */
     // [START maps_current_place_on_save_instance_state]
     override fun onSaveInstanceState(outState: Bundle) {
-        ::mMap.isInitialized.takeIf { it }?.let {
-            outState.putParcelable(KEY_CAMERA_POSITION, mMap.cameraPosition)
+        mMap?.let {
+            outState.putParcelable(KEY_CAMERA_POSITION, it.cameraPosition)
             outState.putParcelable(KEY_LOCATION, lastKnownLocation)
         }
         super.onSaveInstanceState(outState)
@@ -187,16 +189,19 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         handleRationale = false,
         rationaleMessage = "Custom rational message",
         permanentDeniedMethod = { req ->
-            mMap.isMyLocationEnabled = false
-            mMap.uiSettings?.isMyLocationButtonEnabled = false
-            lastKnownLocation = null
+            mMap?.apply {
+                isMyLocationEnabled = false
+                uiSettings?.isMyLocationButtonEnabled = false
 
-            mMap.moveCamera(
-                CameraUpdateFactory.newLatLngZoom(
-                    defaultLocation,
-                    DEFAULT_ZOOM.toFloat()
+                moveCamera(
+                    CameraUpdateFactory.newLatLngZoom(
+                        defaultLocation,
+                        DEFAULT_ZOOM.toFloat()
+                    )
                 )
-            )
+            }
+
+            lastKnownLocation = null
         }
     )
 
@@ -206,9 +211,11 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         Manifest.permission.ACCESS_COARSE_LOCATION,
         options = mapOptions
     ) {
-        mMap.isMyLocationEnabled = true
-        mMap.uiSettings?.isMyLocationButtonEnabled = true
-        mMap.uiSettings?.changeMyLocationButtonMargin(requireView(), 0, 230, 230, 0)
+        mMap?.apply {
+            isMyLocationEnabled = true
+            uiSettings?.isMyLocationButtonEnabled = true
+            uiSettings?.changeMyLocationButtonMargin(requireView(), 0, 230, 230, 0)
+        }
 
         // Get the current location of the device and set the position of the map.
         getDeviceLocation()
@@ -223,20 +230,20 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         fusedLocationProviderClient.lastLocation.addOnCompleteListener { task ->
             task.takeIf { it.isSuccessful }?.result ?: kotlin.run {
                 viewModel.pointsOfInterest.fetch(currentLocation())
-                mMap.moveCamera(
+                mMap?.moveCamera(
                     CameraUpdateFactory.newLatLngZoom(
                         defaultLocation,
                         DEFAULT_ZOOM.toFloat()
                     )
                 )
-                mMap.uiSettings?.isMyLocationButtonEnabled = false
+                mMap?.uiSettings?.isMyLocationButtonEnabled = false
                 return@addOnCompleteListener
             }
 
             // Set the map's camera position to the current location of the device.
             lastKnownLocation = task.result
 
-            mMap.moveCamera(
+            mMap?.moveCamera(
                 CameraUpdateFactory.newLatLngZoom(
                     LatLng(lastKnownLocation!!.latitude, lastKnownLocation!!.longitude),
                     DEFAULT_ZOOM.toFloat()
