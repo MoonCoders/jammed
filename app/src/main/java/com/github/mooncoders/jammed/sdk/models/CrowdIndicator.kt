@@ -1,7 +1,7 @@
 package com.github.mooncoders.jammed.sdk.models
 
 enum class CrowdIndicator {
-    Low,
+    Low, // less or equal than 35
     Medium,
-    High
+    High // over 75
 }
