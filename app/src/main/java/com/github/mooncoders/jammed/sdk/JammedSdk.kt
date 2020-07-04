@@ -1,6 +1,7 @@
 package com.github.mooncoders.jammed.sdk
 
 import android.app.Application
+import android.util.Log
 import com.github.mooncoders.jammed.BuildConfig
 import com.github.mooncoders.jammed.R
 import com.github.mooncoders.jammed.sdk.helpers.ApiKeyInterceptor
@@ -10,7 +11,11 @@ import com.github.mooncoders.jammed.sdk.models.PointOfInterest
 import com.github.mooncoders.jammed.sdk.models.PointsOfInterestParams
 import com.jakewharton.threetenabp.AndroidThreeTen
 import com.squareup.moshi.Moshi
+import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
@@ -59,21 +64,19 @@ class JammedSdk(
 
     private val server = MockServer()
 
-    suspend fun getNumberOfPedestrians(pointOfInterest: PointOfInterest): Int {
-        return when {
-            (pointOfInterest.imageUrl == "spiaggia_affollata.jpg") -> {
-                15
-            }
-            else -> 0
-        }
-    }
-
     suspend fun getPointsOfInterest(params: PointsOfInterestParams): List<PointOfInterest> {
         return server.getPointsOfInterest(params)
     }
 
-    suspend fun countPedestrians(imageUrl: String) : Int {
+    suspend fun countPedestrians(imageUrl: String): Int {
         val imageData = contentClient.getData(imageUrl).bytes()
-        return client.pedestrianDetection(imageData).people?.size ?: -1
+        val response = client.pedestrianDetection(
+            imageData.toRequestBody(
+                "image/*".toMediaTypeOrNull(),
+                0,
+                imageData.size
+            )
+        )
+        return response.people?.size ?: -1
     }
 }

@@ -9,8 +9,8 @@ import com.github.mooncoders.jammed.ui.foundation.CoroutineFetcher
 
 class MainViewModel : ViewModel() {
 
-    val pedestriansFetcher = CoroutineFetcher<PointOfInterest, Int>(viewModelScope) { image ->
-        App.sdk.getNumberOfPedestrians(image)
+    val pedestriansFetcher = CoroutineFetcher<PointOfInterest, Int>(viewModelScope) { poi ->
+        App.sdk.countPedestrians(poi.imageUrl)
     }
 
     val pointsOfInterest =
