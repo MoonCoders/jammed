@@ -20,45 +20,45 @@ class MockServer {
         return listOf(
             getRandomLocation(params).let {
                 PointOfInterest(
-                    title = "Place 1",
+                    title = "Punta Celesi - Palermo",
                     latitude = it.first,
                     longitude = it.second,
                     squareMeters = 10.0,
                     image = "",
-                    video = "",
+                    video = "https://github.com/MoonCoders/resources/blob/master/punta_celesi.mp4?raw=true",
                     crowdIndicator = CrowdIndicator.High
                 )
             },
             getRandomLocation(params).let {
                 PointOfInterest(
-                    title = "Place 2",
+                    title = "Piazza del Duomo - Firenze",
                     latitude = it.first,
                     longitude = it.second,
                     squareMeters = 20.0,
                     image = "",
-                    video = "",
+                    video = "https://github.com/MoonCoders/resources/blob/master/duomo_firenze.mp4?raw=true",
                     crowdIndicator = CrowdIndicator.Low
                 )
             },
             getRandomLocation(params).let {
                 PointOfInterest(
-                    title = "Place 3",
+                    title = "Fontana di Trevi - Roma",
                     latitude = it.first,
                     longitude = it.second,
                     squareMeters = 30.0,
                     image = "",
-                    video = "",
+                    video = "https://github.com/MoonCoders/resources/blob/master/fontana_trevi.mp4?raw=true",
                     crowdIndicator = CrowdIndicator.Low
                 )
             },
             getRandomLocation(params).let {
                 PointOfInterest(
-                    title = "Place 4",
+                    title = "Piazza del Duomo - Amalfi",
                     latitude = it.first,
                     longitude = it.second,
                     squareMeters = 40.0,
                     image = "",
-                    video = "",
+                    video = "https://github.com/MoonCoders/resources/blob/master/amalfi.mp4?raw=true",
                     crowdIndicator = CrowdIndicator.Medium
                 )
             }
