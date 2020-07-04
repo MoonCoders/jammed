@@ -1,31 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <item
         android:id="@+id/explore"
         android:icon="@drawable/ic_map"
-        android:orderInCategory="2"
+        android:orderInCategory="1"
         android:title="@string/explore"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/saved"
         android:icon="@drawable/ic_saved"
-        android:orderInCategory="1"
+        android:orderInCategory="2"
         android:title="@string/saved"
-        app:showAsAction="always" />
+        app:showAsAction="always"
+        tools:ignore="AlwaysShowAction" />
     <item
         android:id="@+id/places"
         android:icon="@drawable/ic_places"
-        android:orderInCategory="2"
+        android:orderInCategory="3"
         android:title="@string/places"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/more"
         android:icon="@drawable/ic_more"
-        android:orderInCategory="2"
+        android:orderInCategory="4"
         android:title="@string/more"
         app:showAsAction="always" />
 

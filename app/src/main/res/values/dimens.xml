@@ -11,4 +11,12 @@
     <dimen name="title_top_padding">24dp</dimen>
     <dimen name="title_bottom_padding">8dp</dimen>
     <dimen name="title_left_padding">16dp</dimen>
+    <dimen name="space16">16dp</dimen>
+    <dimen name="space4">4dp</dimen>
+    <dimen name="separatorHeight">1dp</dimen>
+    <dimen name="space8">8dp</dimen>
+    <dimen name="drag_line_height">4dp</dimen>
+    <dimen name="drag_line_width">32dp</dimen>
+    <dimen name="peek_height">128dp</dimen>
+    <dimen name="bottom_nav_bar_height">56dp</dimen>
 </resources>

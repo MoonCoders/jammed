@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottomSheet"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:behavior_halfExpandedRatio="0.4"
+    app:behavior_hideable="true"
+    app:behavior_peekHeight="@dimen/peek_height"
+    app:cardCornerRadius="@dimen/space8"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/space16">
+
+        <View
+            android:id="@+id/drag_line"
+            android:layout_width="@dimen/drag_line_width"
+            android:layout_height="@dimen/drag_line_height"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/drag_line" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/place_title"
+            style="@style/TextAppearance.MaterialComponents.Headline5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/space8"
+            android:text="@string/explore" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/place_description"
+            style="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/space8" />
+
+        <View
+            android:id="@+id/separator"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/separatorHeight"
+            android:layout_marginStart="@dimen/space4"
+            android:layout_marginLeft="@dimen/space4"
+            android:layout_marginEnd="@dimen/space4"
+            android:layout_marginRight="@dimen/space4"
+            android:background="?attr/colorButtonNormal" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chips"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </com.google.android.material.chip.ChipGroup>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/preview"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_map" />
+
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
