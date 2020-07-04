@@ -108,7 +108,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
 
         // Specify the types of place data to return.
         autocompleteFragment.setPlaceFields(listOf(Place.Field.LAT_LNG, Place.Field.NAME))
-        autocompleteFragment.setActivityMode(AutocompleteActivityMode.FULLSCREEN)
+        autocompleteFragment.setActivityMode(AutocompleteActivityMode.OVERLAY)
 
         // Set up a PlaceSelectionListener to handle the response.
         autocompleteFragment.setOnPlaceSelectedListener(object : PlaceSelectionListener {
@@ -202,7 +202,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     ) {
         mMap.isMyLocationEnabled = true
         mMap.uiSettings?.isMyLocationButtonEnabled = true
-        mMap.uiSettings?.changeMyLocationButtonMargin(0, 180, 180, 0)
+        mMap.uiSettings?.changeMyLocationButtonMargin(0, 230, 230, 0)
 
         // Get the current location of the device and set the position of the map.
         getDeviceLocation()
