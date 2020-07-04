@@ -4,6 +4,7 @@ import android.app.Application
 import android.util.Log
 import com.github.mooncoders.jammed.BuildConfig
 import com.github.mooncoders.jammed.R
+import com.github.mooncoders.jammed.sdk.apimodels.SmsPayload
 import com.github.mooncoders.jammed.sdk.helpers.ApiKeyInterceptor
 import com.github.mooncoders.jammed.sdk.helpers.Iso8601DateTimeTypeAdapter
 import com.github.mooncoders.jammed.sdk.helpers.UserAgentInterceptor
@@ -63,6 +64,13 @@ class JammedSdk(
         .create(ContentAPI::class.java)
 
     private val server = MockServer()
+
+    suspend fun sendSms(target: String, message: String) {
+        client.sendSms(SmsPayload(
+            address = "tel:+39$target",
+            message = message
+        ))
+    }
 
     suspend fun getPointsOfInterest(params: PointsOfInterestParams): List<PointOfInterest> {
         return server.getPointsOfInterest(params)

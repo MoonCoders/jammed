@@ -1,5 +1,6 @@
 package com.github.mooncoders.jammed.sdk.apimodels
 
+import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
@@ -16,4 +17,10 @@ data class PedestrianDetectionResponse(
     val error: String,
     val e_message: String,
     val people: List<PersonRectangle>?
+)
+
+@JsonClass(generateAdapter = true)
+data class SmsPayload(
+    val address: String,
+    val message: String
 )
