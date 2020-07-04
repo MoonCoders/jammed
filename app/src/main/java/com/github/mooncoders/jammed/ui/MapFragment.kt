@@ -113,6 +113,12 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         // Set up a PlaceSelectionListener to handle the response.
         autocompleteFragment.setOnPlaceSelectedListener(object : PlaceSelectionListener {
             override fun onPlaceSelected(place: Place) {
+                mMap.moveCamera(
+                    CameraUpdateFactory.newLatLngZoom(
+                        place.latLng,
+                        DEFAULT_ZOOM.toFloat()
+                    )
+                )
             }
 
             override fun onError(status: Status) {
