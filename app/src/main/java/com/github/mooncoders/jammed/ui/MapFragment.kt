@@ -8,18 +8,20 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.RelativeLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.github.mooncoders.jammed.R
 import com.github.mooncoders.jammed.sdk.extensions.marker
 import com.github.mooncoders.jammed.sdk.models.PointsOfInterestParams
 import com.github.mooncoders.jammed.ui.foundation.BaseFragment
+import com.github.mooncoders.jammed.ui.foundation.changeMyLocationButtonMargin
 import com.google.android.gms.common.api.Status
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import com.google.android.gms.maps.*
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.libraries.places.api.Places
@@ -203,7 +205,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     ) {
         mMap.isMyLocationEnabled = true
         mMap.uiSettings?.isMyLocationButtonEnabled = true
-        mMap.uiSettings?.changeMyLocationButtonMargin(0, 230, 230, 0)
+        mMap.uiSettings?.changeMyLocationButtonMargin(requireView(), 0, 230, 230, 0)
 
         // Get the current location of the device and set the position of the map.
         getDeviceLocation()
@@ -239,21 +241,6 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
             )
             viewModel.pointsOfInterest.fetch(currentLocation())
         }
-    }
-
-    private fun UiSettings.changeMyLocationButtonMargin(
-        left: Int,
-        top: Int,
-        right: Int,
-        bottom: Int
-    ) {
-        val locationButton = requireView().findViewById<ImageView>(Integer.parseInt("2"))
-        val rlp: RelativeLayout.LayoutParams =
-            locationButton.layoutParams as RelativeLayout.LayoutParams
-        rlp.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0)
-        rlp.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE)
-        rlp.setMargins(left, top, right, bottom)
-        locationButton.requestLayout()
     }
 
     companion object {
