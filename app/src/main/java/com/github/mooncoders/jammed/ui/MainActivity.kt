@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         bottom_nav_bar.setOnNavigationItemSelectedListener { item ->
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
             when (item.itemId) {
-                R.id.explore -> {
+                R.id.map -> {
                     bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
                 }
                 R.id.saved -> {
