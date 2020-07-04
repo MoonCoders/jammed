@@ -1,7 +1,6 @@
 package com.github.mooncoders.jammed.ui
 
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import com.github.mooncoders.jammed.R
@@ -18,23 +17,23 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
-        bottomSheetBehavior.addBottomSheetCallback(object :
-            BottomSheetBehavior.BottomSheetCallback() {
-            override fun onSlide(bottomSheet: View, slideOffset: Float) = Unit
-            override fun onStateChanged(bottomSheet: View, newState: Int) = Unit
-        })
 
         bottom_nav_bar.setOnNavigationItemSelectedListener { item ->
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
             when (item.itemId) {
                 R.id.explore -> {
+                    bottom_sheet_title.text = getString(R.string.explore)
                     bottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
                 }
                 R.id.saved -> {
+                    bottom_sheet_title.text = getString(R.string.saved)
                 }
                 R.id.places -> {
+                    bottom_sheet_title.text = getString(R.string.places)
                 }
                 R.id.more -> {
-
+                    bottom_sheet_title.text = getString(R.string.more)
+                    bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
                 }
             }
             true

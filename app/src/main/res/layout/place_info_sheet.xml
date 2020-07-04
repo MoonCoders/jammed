@@ -24,7 +24,7 @@
             android:background="@drawable/drag_line" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/place_title"
+            android:id="@+id/bottom_sheet_title"
             style="@style/TextAppearance.MaterialComponents.Headline5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
             android:text="@string/explore" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/place_description"
+            android:id="@+id/bottom_sheet_subtitle"
             style="@style/TextAppearance.MaterialComponents.Subtitle1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
