@@ -8,13 +8,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.github.mooncoders.jammed.R
 import com.github.mooncoders.jammed.sdk.extensions.marker
 import com.github.mooncoders.jammed.sdk.models.PointOfInterest
 import com.github.mooncoders.jammed.sdk.models.PointsOfInterestParams
-import com.github.mooncoders.jammed.ui.foundation.BaseFragment
 import com.github.mooncoders.jammed.ui.foundation.changeMyLocationButtonMargin
 import com.google.android.gms.common.api.Status
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -35,7 +35,7 @@ import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import com.livinglifetechway.quickpermissions_kotlin.util.QuickPermissionsOptions
 
 
-class MapFragment : BaseFragment(), OnMapReadyCallback {
+class MapFragment : Fragment(), OnMapReadyCallback {
 
     private val viewModel by lazy {
         ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
