@@ -14,13 +14,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
-        setSupportActionBar(toolbar)
-        supportActionBar?.apply {
-            setDisplayHomeAsUpEnabled(true)
-            setDisplayShowHomeEnabled(true)
-        }
+//        setSupportActionBar(toolbar)
+//        supportActionBar?.apply {
+//            setDisplayHomeAsUpEnabled(true)
+//            setDisplayShowHomeEnabled(true)
+//        }
 
-        setupActionBarWithNavController(findNavController(R.id.nav_host_fragment))
+//        setupActionBarWithNavController(findNavController(R.id.nav_host_fragment))
     }
 
     override fun onSupportNavigateUp(): Boolean {
