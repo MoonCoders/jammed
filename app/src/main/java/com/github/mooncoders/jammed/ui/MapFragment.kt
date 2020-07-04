@@ -132,7 +132,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         viewModel.pointsOfInterest.apply {
             success.observe(viewLifecycleOwner, Observer { pointsOfInterest ->
                 pointsOfInterest.forEach { pointOfInterest ->
-                    mMap.addMarker(pointOfInterest.marker(requireContext()))
+                    mMap.addMarker(pointOfInterest.marker(requireContext())).tag = pointOfInterest
                 }
             })
 
