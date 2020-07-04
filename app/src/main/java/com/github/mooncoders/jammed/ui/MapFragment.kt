@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.github.mooncoders.jammed.R
 import com.github.mooncoders.jammed.sdk.extensions.marker
+import com.github.mooncoders.jammed.sdk.models.PointOfInterest
 import com.github.mooncoders.jammed.sdk.models.PointsOfInterestParams
 import com.github.mooncoders.jammed.ui.foundation.BaseFragment
 import com.github.mooncoders.jammed.ui.foundation.changeMyLocationButtonMargin
@@ -168,15 +169,17 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
-        mMap = googleMap
+        mMap = googleMap.apply {
+            setOnMarkerClickListener { marker ->
+                (marker.tag as? PointOfInterest)?.let {
+                    viewModel.selectedPointOfInterest.postValue(it)
+                    true
+                } ?: false
+            }
+        }
 
         // Turn on the My Location layer and the related control on the map.
         updateLocation()
-
-        // Add a marker in Sydney and move the camera
-//        val milanMarker = LatLng(45.464664, 9.188540)
-//        mMap.addMarker(MarkerOptions().position(milanMarker).title("Marker in Milan"))
-//        mMap.moveCamera(CameraUpdateFactory.newLatLng(milanMarker))
     }
 
     @SuppressLint("MissingPermission")

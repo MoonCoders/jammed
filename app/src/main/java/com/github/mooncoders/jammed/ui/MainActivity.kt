@@ -2,6 +2,8 @@ package com.github.mooncoders.jammed.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.github.mooncoders.jammed.R
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -11,6 +13,10 @@ import kotlinx.android.synthetic.main.place_info_sheet.*
 class MainActivity : AppCompatActivity() {
 
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<*>
+
+    private val viewModel by lazy {
+        ViewModelProvider(this).get(MainViewModel::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,11 +45,9 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
-//        setupActionBarWithNavController(findNavController(R.id.nav_host_fragment))
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        return findNavController(R.id.nav_host_fragment).navigateUp()
+        viewModel.selectedPointOfInterest.observe(this, Observer { selectedPoi ->
+            // TODO kry
+        })
     }
 
 }
