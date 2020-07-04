@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.github.mooncoders.jammed.R
 import com.github.mooncoders.jammed.sdk.models.PlaceCategory
+import com.github.mooncoders.jammed.ui.foundation.openUrl
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.chip.Chip
 import kotlinx.android.synthetic.main.activity_main.*
@@ -76,6 +77,9 @@ class MainActivity : AppCompatActivity() {
             live.setText(R.string.live)
             live.setTextColor(ContextCompat.getColor(this, R.color.live_text))
             live.chipIcon = getDrawable(R.drawable.ic_live)
+            live.setOnClickListener {
+                openUrl(selectedPoi.provider.liveUrl)
+            }
             chips.addView(live)
 
             selectedPoi.categories.forEach {
