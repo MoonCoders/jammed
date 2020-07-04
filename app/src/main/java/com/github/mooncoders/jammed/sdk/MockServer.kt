@@ -30,8 +30,9 @@ class MockServer {
                     latitude = it.first,
                     longitude = it.second,
                     squareMeters = 10.0,
-                    image = gitHubRaw("punta_celesi.jpg"),
-                    video = gitHubRaw("punta_celesi.mp4"),
+                    imageUrl = gitHubRaw("punta_celesi.jpg"),
+                    timelapseUrl = gitHubRaw("punta_celesi.mp4"),
+                    liveUrl = "https://www.skylinewebcams.com/en/webcam/italia/sicilia/palermo/punta-celesi.html",
                     crowdIndicator = CrowdIndicator.High
                 )
             },
@@ -41,8 +42,9 @@ class MockServer {
                     latitude = it.first,
                     longitude = it.second,
                     squareMeters = 20.0,
-                    image = gitHubRaw("duomo_firenze.jpg"),
-                    video = gitHubRaw("duomo_firenze.mp4"),
+                    imageUrl = gitHubRaw("duomo_firenze.jpg"),
+                    timelapseUrl = gitHubRaw("duomo_firenze.mp4"),
+                    liveUrl = "https://www.skylinewebcams.com/en/webcam/italia/toscana/firenze/piazza-duomo-firenze.html",
                     crowdIndicator = CrowdIndicator.Low
                 )
             },
@@ -52,8 +54,9 @@ class MockServer {
                     latitude = it.first,
                     longitude = it.second,
                     squareMeters = 30.0,
-                    image = gitHubRaw("fontana_trevi.jpg"),
-                    video = gitHubRaw("fontana_trevi.mp4"),
+                    imageUrl = gitHubRaw("fontana_trevi.jpg"),
+                    timelapseUrl = gitHubRaw("fontana_trevi.mp4"),
+                    liveUrl = "https://www.skylinewebcams.com/en/webcam/italia/lazio/roma/fontana-di-trevi.html",
                     crowdIndicator = CrowdIndicator.Low
                 )
             },
@@ -63,8 +66,9 @@ class MockServer {
                     latitude = it.first,
                     longitude = it.second,
                     squareMeters = 40.0,
-                    image = gitHubRaw("amalfi.jpg"),
-                    video = gitHubRaw("amalfi.mp4"),
+                    imageUrl = gitHubRaw("amalfi.jpg"),
+                    timelapseUrl = gitHubRaw("amalfi.mp4"),
+                    liveUrl = "https://leganavaleamalfi.it/webcams/#live",
                     crowdIndicator = CrowdIndicator.Medium
                 )
             }

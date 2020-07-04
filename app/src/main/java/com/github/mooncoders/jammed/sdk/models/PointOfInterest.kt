@@ -9,8 +9,9 @@ data class PointOfInterest(
     val longitude: Double,
     val squareMeters: Double,
     val title: String,
-    val image: String,
-    val video: String,
+    val imageUrl: String,
+    val timelapseUrl: String,
+    val liveUrl: String,
     val crowdIndicator: CrowdIndicator
 ) {
     fun marker() = MarkerOptions().position(LatLng(latitude, longitude)).title(title)

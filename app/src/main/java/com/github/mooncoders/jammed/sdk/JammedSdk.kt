@@ -61,7 +61,7 @@ class JammedSdk(
 
     suspend fun getNumberOfPedestrians(pointOfInterest: PointOfInterest): Int {
         return when {
-            (pointOfInterest.image == "spiaggia_affollata.jpg") -> {
+            (pointOfInterest.imageUrl == "spiaggia_affollata.jpg") -> {
                 15
             }
             else -> 0
