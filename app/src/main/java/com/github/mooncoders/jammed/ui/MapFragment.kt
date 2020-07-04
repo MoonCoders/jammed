@@ -8,21 +8,25 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.RelativeLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.github.mooncoders.jammed.R
 import com.github.mooncoders.jammed.sdk.models.PointsOfInterestParams
 import com.github.mooncoders.jammed.ui.foundation.BaseFragment
+import com.google.android.gms.common.api.Status
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.libraries.places.api.Places
+import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.net.PlacesClient
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import com.livinglifetechway.quickpermissions_kotlin.util.QuickPermissionsOptions
 
@@ -60,7 +64,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         savedInstanceState: Bundle?
     ) = inflater.inflate(R.layout.map_fragment, container, false)
 
-    private fun currentLocation() : PointsOfInterestParams {
+    private fun currentLocation(): PointsOfInterestParams {
         val location = lastKnownLocation
 
         return if (location == null) {
@@ -97,6 +101,24 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
         // Construct a FusedLocationProviderClient.
         fusedLocationProviderClient =
             LocationServices.getFusedLocationProviderClient(requireActivity())
+
+        // Initialize the AutocompleteSupportFragment.
+        val autocompleteFragment = childFragmentManager.findFragmentById(R.id.search_bar)
+                as AutocompleteSupportFragment
+
+        // Specify the types of place data to return.
+        autocompleteFragment.setPlaceFields(listOf(Place.Field.LAT_LNG, Place.Field.NAME))
+        autocompleteFragment.setActivityMode(AutocompleteActivityMode.FULLSCREEN)
+
+        // Set up a PlaceSelectionListener to handle the response.
+        autocompleteFragment.setOnPlaceSelectedListener(object : PlaceSelectionListener {
+            override fun onPlaceSelected(place: Place) {
+            }
+
+            override fun onError(status: Status) {
+                Log.e("TAG", "Error autocompleteFragment: ${status.statusMessage}")
+            }
+        })
 
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
@@ -174,6 +196,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     ) {
         mMap.isMyLocationEnabled = true
         mMap.uiSettings?.isMyLocationButtonEnabled = true
+        mMap.uiSettings?.changeMyLocationButtonMargin(0, 180, 180, 0)
 
         // Get the current location of the device and set the position of the map.
         getDeviceLocation()
@@ -209,6 +232,21 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
             )
             viewModel.pointsOfInterest.fetch(currentLocation())
         }
+    }
+
+    private fun UiSettings.changeMyLocationButtonMargin(
+        left: Int,
+        top: Int,
+        right: Int,
+        bottom: Int
+    ) {
+        val locationButton = requireView().findViewById<ImageView>(Integer.parseInt("2"))
+        val rlp: RelativeLayout.LayoutParams =
+            locationButton.layoutParams as RelativeLayout.LayoutParams
+        rlp.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0)
+        rlp.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE)
+        rlp.setMargins(left, top, right, bottom)
+        locationButton.requestLayout()
     }
 
     companion object {
