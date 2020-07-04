@@ -2,11 +2,14 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/logbuddy_nav_info"
-    app:startDestination="@id/firstFragment">
+    app:startDestination="@id/mapFragment">
 
     <fragment
-        android:id="@+id/firstFragment"
-        android:name="com.github.mooncoders.jammed.ui.MapFragment">
-    </fragment>
+        android:id="@+id/mapFragment"
+        android:name="com.github.mooncoders.jammed.ui.MapFragment" />
+
+    <fragment
+        android:id="@+id/savedFragment"
+        android:name="com.github.mooncoders.jammed.ui.SavedFragment" />
 
 </navigation>
