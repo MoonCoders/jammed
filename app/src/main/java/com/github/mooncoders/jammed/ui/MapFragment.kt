@@ -50,7 +50,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     private val defaultLocation = LatLng(45.464664, 9.188540)
 
     // Radius in meters around the location
-    private val radiusInMeters = 50
+    private val radiusInMeters = 0.01
 
     // The entry point to the Places API.
     private lateinit var placesClient: PlacesClient
@@ -140,8 +140,6 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-        viewModel.pointsOfInterest.fetch(currentLocation())
-
         // Turn on the My Location layer and the related control on the map.
         updateLocation()
 
@@ -190,6 +188,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
          */
         fusedLocationProviderClient.lastLocation.addOnCompleteListener { task ->
             task.takeIf { it.isSuccessful }?.result ?: kotlin.run {
+                viewModel.pointsOfInterest.fetch(currentLocation())
                 mMap.moveCamera(
                     CameraUpdateFactory.newLatLngZoom(
                         defaultLocation,
@@ -209,6 +208,7 @@ class MapFragment : BaseFragment(), OnMapReadyCallback {
                     DEFAULT_ZOOM.toFloat()
                 )
             )
+            viewModel.pointsOfInterest.fetch(currentLocation())
         }
     }
 
