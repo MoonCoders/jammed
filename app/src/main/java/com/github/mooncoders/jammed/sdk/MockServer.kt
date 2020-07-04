@@ -25,7 +25,8 @@ class MockServer {
                     longitude = it.second,
                     squareMeters = 10.0,
                     image = "",
-                    video = ""
+                    video = "",
+                    crowdIndicator = CrowdIndicator.High
                 )
             },
             getRandomLocation(params).let {
@@ -35,7 +36,8 @@ class MockServer {
                     longitude = it.second,
                     squareMeters = 20.0,
                     image = "",
-                    video = ""
+                    video = "",
+                    crowdIndicator = CrowdIndicator.Low
                 )
             },
             getRandomLocation(params).let {
@@ -45,7 +47,8 @@ class MockServer {
                     longitude = it.second,
                     squareMeters = 30.0,
                     image = "",
-                    video = ""
+                    video = "",
+                    crowdIndicator = CrowdIndicator.Low
                 )
             },
             getRandomLocation(params).let {
@@ -55,7 +58,8 @@ class MockServer {
                     longitude = it.second,
                     squareMeters = 40.0,
                     image = "",
-                    video = ""
+                    video = "",
+                    crowdIndicator = CrowdIndicator.Medium
                 )
             }
         )
