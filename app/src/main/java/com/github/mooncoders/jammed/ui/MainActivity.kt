@@ -8,6 +8,11 @@ import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupWithNavController
 import com.bumptech.glide.Glide
 import com.github.mooncoders.jammed.R
 import com.github.mooncoders.jammed.sdk.models.PlaceCategory
@@ -101,6 +106,10 @@ class MainActivity : AppCompatActivity() {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
             preview.visibility = View.VISIBLE
         })
+
+        findNavController(R.id.nav_host_fragment).let {
+            bottom_nav_bar.setupWithNavController(it)
+        }
     }
 
 }
