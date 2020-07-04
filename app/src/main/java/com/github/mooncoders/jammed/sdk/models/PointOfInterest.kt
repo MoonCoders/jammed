@@ -16,6 +16,7 @@ data class PointOfInterest(
     val latitude: Double,
     val longitude: Double,
     val title: String,
+    val address: String,
     val squareMeters: Double, // valore nominale secondo planimetria
     val advertising: Advertising,
     val provider: Provider,

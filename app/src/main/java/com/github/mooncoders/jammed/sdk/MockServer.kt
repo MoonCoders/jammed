@@ -24,7 +24,8 @@ class MockServer {
         return listOf(
             getRandomLocation(params).let {
                 PointOfInterest(
-                    title = "Punta Celesi - Palermo",
+                    title = "Punta Celesi",
+                    address = "Molo Punta Celesi, 90149 Palermo",
                     latitude = it.first,
                     longitude = it.second,
                     squareMeters = 10.0,
@@ -45,7 +46,8 @@ class MockServer {
             },
             getRandomLocation(params).let {
                 PointOfInterest(
-                    title = "Piazza del Duomo - Firenze",
+                    title = "Piazza del Duomo",
+                    address = "50122 Firenze",
                     latitude = it.first,
                     longitude = it.second,
                     squareMeters = 20.0,
@@ -66,7 +68,8 @@ class MockServer {
             },
             getRandomLocation(params).let {
                 PointOfInterest(
-                    title = "Fontana di Trevi - Roma",
+                    title = "Fontana di Trevi",
+                    address = "Piazza di Trevi, 00187 Roma",
                     latitude = it.first,
                     longitude = it.second,
                     squareMeters = 30.0,
@@ -87,7 +90,8 @@ class MockServer {
             },
             getRandomLocation(params).let {
                 PointOfInterest(
-                    title = "Piazza del Duomo - Amalfi",
+                    title = "Piazza del Duomo",
+                    address = "84011 Amalfi SA",
                     latitude = it.first,
                     longitude = it.second,
                     squareMeters = 40.0,
