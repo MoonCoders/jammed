@@ -53,3 +53,6 @@ Ricevuto il punto di interesse, viene prelevato un frame dalla webcam live e inv
 
 #### Idea realizzata
 Il server è InApp con le configurazioni cablate. Abbiamo mappato 4 punti di interesse sulla mappa e per ognuno abbiamo prelevato una istantanea di un frame dalla webcam Skyline che abbiamo trovato in rete. Questa istantanea viene inviata alle TIM Pedestrian API e viene effettuato il calcolo dell’affluenza istantaneo. Essendo un server standalone InApp non avviene alcuna storicizzazione e i dati di affluenza medi che vedrete sono mockati a scopo dimostrativo.
+
+<img width="631" alt="Schermata 2020-07-05 alle 18 58 11" src="https://user-images.githubusercontent.com/16792495/86537721-8ff7d100-bef1-11ea-8f12-d54ccfef6c14.png">
+
