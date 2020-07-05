@@ -12,10 +12,6 @@ class MainViewModel : ViewModel() {
 
     val selectedPointOfInterest = MutableLiveData<PointOfInterest>()
 
-    val pedestriansFetcher = CoroutineFetcher<PointOfInterest, Int>(viewModelScope) { poi ->
-        App.sdk.countPedestrians(poi.provider.imageUrl)
-    }
-
     val pointsOfInterest =
         CoroutineFetcher<PointsOfInterestParams, List<PointOfInterest>>(viewModelScope) {
             App.sdk.getPointsOfInterest(it)

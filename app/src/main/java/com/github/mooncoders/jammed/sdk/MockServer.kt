@@ -28,8 +28,8 @@ class MockServer {
                     address = "Molo Punta Celesi, 90149 Palermo",
                     latitude = it.first,
                     longitude = it.second,
-                    squareMeters = 1540.0,
-                    crowdIndicator = CrowdIndicator.High,
+                    squareMeters = 300.0,
+                    crowdIndicator = CrowdIndicator.Low,
                     categories = listOf(PlaceCategory.Beach),
                     provider = Provider(
                         name = "Skyline",
@@ -118,7 +118,7 @@ class MockServer {
                     address = "Piazza di Trevi, 00187 Roma",
                     latitude = it.first,
                     longitude = it.second,
-                    squareMeters = 140.0,
+                    squareMeters = 100.0,
                     crowdIndicator = CrowdIndicator.Low,
                     categories = listOf(PlaceCategory.TouristAttraction),
                     provider = Provider(
@@ -163,8 +163,8 @@ class MockServer {
                     address = "84011 Amalfi",
                     latitude = it.first,
                     longitude = it.second,
-                    squareMeters = 200.0,
-                    crowdIndicator = CrowdIndicator.Medium,
+                    squareMeters = 100.0,
+                    crowdIndicator = CrowdIndicator.Low,
                     categories = listOf(PlaceCategory.TouristAttraction),
                     provider = Provider(
                         name = "Lega Navale",

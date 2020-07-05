@@ -163,16 +163,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             })
         }
 
-        viewModel.pedestriansFetcher.apply {
-            success.observe(viewLifecycleOwner, Observer {
-                Log.e("TAG", "Number of pedestrians: $it")
-            })
-
-            error.observe(viewLifecycleOwner, Observer {
-                Log.e("TAG", "Error", it)
-            })
-        }
-
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
         bottomSheetBehavior.addBottomSheetCallback(object :
             BottomSheetBehavior.BottomSheetCallback() {

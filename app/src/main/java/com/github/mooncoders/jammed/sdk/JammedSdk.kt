@@ -5,13 +5,16 @@ import android.util.Log
 import com.github.mooncoders.jammed.BuildConfig
 import com.github.mooncoders.jammed.R
 import com.github.mooncoders.jammed.sdk.apimodels.SmsPayload
+import com.github.mooncoders.jammed.sdk.extensions.parallelMap
 import com.github.mooncoders.jammed.sdk.helpers.ApiKeyInterceptor
 import com.github.mooncoders.jammed.sdk.helpers.Iso8601DateTimeTypeAdapter
 import com.github.mooncoders.jammed.sdk.helpers.UserAgentInterceptor
+import com.github.mooncoders.jammed.sdk.models.CrowdIndicator
 import com.github.mooncoders.jammed.sdk.models.PointOfInterest
 import com.github.mooncoders.jammed.sdk.models.PointsOfInterestParams
 import com.jakewharton.threetenabp.AndroidThreeTen
 import com.squareup.moshi.Moshi
+import kotlinx.coroutines.delay
 import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
@@ -25,6 +28,8 @@ class JammedSdk(
     timBaseUrl: String,
     httpClient: OkHttpClient = OkHttpClient()
 ) {
+    private val areaPerPerson = 4 // square meters
+
     private val moshi by lazy {
         Moshi.Builder()
             .add(Iso8601DateTimeTypeAdapter())
@@ -66,17 +71,49 @@ class JammedSdk(
     private val server = MockServer()
 
     suspend fun sendSms(target: String, message: String) {
-        client.sendSms(SmsPayload(
-            address = "tel:+39$target",
-            message = message
-        ))
+        client.sendSms(
+            SmsPayload(
+                address = "tel:+39$target",
+                message = message
+            )
+        )
     }
 
     suspend fun getPointsOfInterest(params: PointsOfInterestParams): List<PointOfInterest> {
-        return server.getPointsOfInterest(params)
+        val pointsOfInterest = server.getPointsOfInterest(params)
+
+        // Parallel calls not possible because of rate limiting -_-
+        /*return pointsOfInterest.parallelMap {
+            val peopleCount = countPedestrians(it.provider.imageUrl)
+            it.copy(crowdIndicator = affluence(it.squareMeters, areaPerPerson, peopleCount))
+        }*/
+
+        // Applying rate limiting constraints
+        return pointsOfInterest.map {
+            val peopleCount = countPedestrians(it.provider.imageUrl)
+            val affluence = affluence(it.squareMeters, areaPerPerson, peopleCount)
+            delay(1100)
+            Log.e("PEDESTRIANS", "Got $peopleCount in ${it.title}, ${it.address}. Affluence: $affluence")
+            it.copy(crowdIndicator = affluence)
+        }
     }
 
-    suspend fun countPedestrians(imageUrl: String): Int {
+    private fun affluence(
+        totalSquareMeters: Double,
+        areaPerPerson: Int,
+        people: Int
+    ): CrowdIndicator {
+        val slots = totalSquareMeters / areaPerPerson
+        val affluence = people.toDouble() / slots
+
+        return when {
+            affluence <= 0.35 -> CrowdIndicator.Low
+            affluence > 0.35 && affluence <= 0.75 -> CrowdIndicator.Medium
+            else -> CrowdIndicator.High
+        }
+    }
+
+    private suspend fun countPedestrians(imageUrl: String): Int {
         val imageData = contentClient.getData(imageUrl).bytes()
         val response = client.pedestrianDetection(
             imageData.toRequestBody(
