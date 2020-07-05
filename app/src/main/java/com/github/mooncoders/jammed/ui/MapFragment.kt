@@ -141,6 +141,13 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         // Set up a PlaceSelectionListener to handle the response.
         autocompleteFragment.setOnPlaceSelectedListener(object : PlaceSelectionListener {
             override fun onPlaceSelected(place: Place) {
+                viewModel.pointOfInterest.fetch(
+                    PointsOfInterestParams(
+                        place.latLng!!.latitude,
+                        place.latLng!!.longitude,
+                        0.0
+                    )
+                )
                 mMap?.moveCamera(
                     CameraUpdateFactory.newLatLngZoom(
                         place.latLng,
@@ -157,12 +164,23 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-        viewModel.pointsOfInterest.apply {
+        viewModel.pointOfInterest.apply {
+            success.observe(viewLifecycleOwner, Observer { pointsOfInterest ->
+                mMap?.also { map ->
+                    map.addMarker(pointsOfInterest.marker(requireContext())).tag = pointsOfInterest
+                }
+            })
+
+            error.observe(viewLifecycleOwner, Observer {
+                Log.e("TAG", "Error", it)
+            })
+        }
+
+        viewModel.mockPointsOfInterestAroundYou.apply {
             success.observe(viewLifecycleOwner, Observer { pointsOfInterest ->
                 mMap?.also { map ->
                     pointsOfInterest.forEach { pointOfInterest ->
-                        map.addMarker(pointOfInterest.marker(requireContext())).tag =
-                            pointOfInterest
+                        map.addMarker(pointOfInterest.marker(requireContext())).tag = pointOfInterest
                     }
                 }
             })
@@ -409,7 +427,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
          */
         fusedLocationProviderClient.lastLocation.addOnCompleteListener { task ->
             task.takeIf { it.isSuccessful }?.result ?: kotlin.run {
-                viewModel.pointsOfInterest.fetch(currentLocation())
+                viewModel.mockPointsOfInterestAroundYou.fetch(currentLocation())
                 mMap?.moveCamera(
                     CameraUpdateFactory.newLatLngZoom(
                         defaultLocation,
@@ -429,7 +447,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                     DEFAULT_ZOOM.toFloat()
                 )
             )
-            viewModel.pointsOfInterest.fetch(currentLocation())
+            viewModel.mockPointsOfInterestAroundYou.fetch(currentLocation())
         }
     }
 

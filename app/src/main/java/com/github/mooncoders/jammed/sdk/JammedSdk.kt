@@ -5,7 +5,6 @@ import android.util.Log
 import com.github.mooncoders.jammed.BuildConfig
 import com.github.mooncoders.jammed.R
 import com.github.mooncoders.jammed.sdk.apimodels.SmsPayload
-import com.github.mooncoders.jammed.sdk.extensions.parallelMap
 import com.github.mooncoders.jammed.sdk.helpers.ApiKeyInterceptor
 import com.github.mooncoders.jammed.sdk.helpers.Iso8601DateTimeTypeAdapter
 import com.github.mooncoders.jammed.sdk.helpers.UserAgentInterceptor
@@ -15,10 +14,8 @@ import com.github.mooncoders.jammed.sdk.models.PointsOfInterestParams
 import com.jakewharton.threetenabp.AndroidThreeTen
 import com.squareup.moshi.Moshi
 import kotlinx.coroutines.delay
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
-import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -79,9 +76,7 @@ class JammedSdk(
         )
     }
 
-    suspend fun getPointsOfInterest(params: PointsOfInterestParams): List<PointOfInterest> {
-        val pointsOfInterest = server.getPointsOfInterest(params)
-
+    suspend fun getPointOfInterest(params: PointsOfInterestParams): PointOfInterest {
         // Parallel calls not possible because of rate limiting -_-
         /*return pointsOfInterest.parallelMap {
             val peopleCount = countPedestrians(it.provider.imageUrl)
@@ -89,14 +84,20 @@ class JammedSdk(
         }*/
 
         // Applying rate limiting constraints
-        return pointsOfInterest.map {
+        return server.getPointOfInterest(params).also {
             val peopleCount = countPedestrians(it.provider.imageUrl)
             val affluence = affluence(it.squareMeters, areaPerPerson, peopleCount)
             delay(1100)
-            Log.e("PEDESTRIANS", "Got $peopleCount in ${it.title}, ${it.address}. Affluence: $affluence")
+            Log.e(
+                "PEDESTRIANS",
+                "Got $peopleCount in ${it.title}, ${it.address}. Affluence: $affluence"
+            )
             it.copy(crowdIndicator = affluence)
         }
     }
+
+    suspend fun getMockPointsOfInterest(params: PointsOfInterestParams) =
+        server.getMockPointsOfInterest(params)
 
     private fun affluence(
         totalSquareMeters: Double,

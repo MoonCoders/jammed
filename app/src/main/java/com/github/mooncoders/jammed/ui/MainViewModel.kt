@@ -12,8 +12,14 @@ class MainViewModel : ViewModel() {
 
     val selectedPointOfInterest = MutableLiveData<PointOfInterest>()
 
-    val pointsOfInterest =
-        CoroutineFetcher<PointsOfInterestParams, List<PointOfInterest>>(viewModelScope) {
-            App.sdk.getPointsOfInterest(it)
+    val pointOfInterest =
+        CoroutineFetcher<PointsOfInterestParams, PointOfInterest>(viewModelScope) {
+            App.sdk.getPointOfInterest(it)
         }
+
+    val mockPointsOfInterestAroundYou =
+        CoroutineFetcher<PointsOfInterestParams, List<PointOfInterest>>(viewModelScope) {
+            App.sdk.getMockPointsOfInterest(it)
+        }
+
 }
