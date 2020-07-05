@@ -100,5 +100,8 @@ dependencies {
 
     implementation 'com.makeramen:roundedimageview:2.3.0'
 
+    implementation 'com.airbnb.android:lottie:3.4.1'
+
+
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 }

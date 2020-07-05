@@ -180,7 +180,8 @@ class MapFragment : Fragment(), OnMapReadyCallback {
             success.observe(viewLifecycleOwner, Observer { pointsOfInterest ->
                 mMap?.also { map ->
                     pointsOfInterest.forEach { pointOfInterest ->
-                        map.addMarker(pointOfInterest.marker(requireContext())).tag = pointOfInterest
+                        map.addMarker(pointOfInterest.marker(requireContext())).tag =
+                            pointOfInterest
                     }
                 }
             })

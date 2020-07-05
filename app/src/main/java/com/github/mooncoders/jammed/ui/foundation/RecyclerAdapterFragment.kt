@@ -28,7 +28,6 @@ open class RecyclerAdapterFragment : Fragment(), RecyclerAdapterProvider {
         recycler_view.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             adapter = recyclerAdapter
-            addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
         }
     }
 }

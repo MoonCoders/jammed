@@ -10,6 +10,14 @@
 
     <fragment
         android:id="@+id/saved"
-        android:name="com.github.mooncoders.jammed.ui.SavedFragment" />
+        android:name="com.github.mooncoders.jammed.ui.EmptyFragment" />
+
+    <fragment
+        android:id="@+id/places"
+        android:name="com.github.mooncoders.jammed.ui.EmptyFragment" />
+
+    <fragment
+        android:id="@+id/more"
+        android:name="com.github.mooncoders.jammed.ui.EmptyFragment" />
 
 </navigation>
