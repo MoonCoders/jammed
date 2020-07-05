@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.view.ContextThemeWrapper
+import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getDrawable
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -17,6 +18,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.data.BarData
+import com.github.mikephil.charting.data.BarDataSet
+import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.formatter.StackedValueFormatter
+import com.github.mikephil.charting.formatter.ValueFormatter
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
 import com.github.mooncoders.jammed.R
 import com.github.mooncoders.jammed.sdk.extensions.marker
 import com.github.mooncoders.jammed.sdk.models.CrowdIndicator
@@ -46,6 +54,7 @@ import com.google.android.material.chip.Chip
 import com.livinglifetechway.quickpermissions_kotlin.runWithPermissions
 import com.livinglifetechway.quickpermissions_kotlin.util.QuickPermissionsOptions
 import kotlinx.android.synthetic.main.place_info_sheet.*
+import java.util.*
 
 
 class MapFragment : Fragment(), OnMapReadyCallback {
@@ -283,11 +292,76 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 setOnClickListener { findNavController().navigate(R.id.saved) }
             })
 
+            val values = mutableListOf<BarEntry>()
+            val colors = mutableListOf<Int>()
 
+            var i = 0f
+
+            selectedPoi.affluence.forEach { entry ->
+                val barEntry = BarEntry(i, floatArrayOf(8f, 8f, 8f))
+                colors.addAll(entry.value.getColors())
+
+                values.add(barEntry)
+                i += 1
+            }
+
+            val set = BarDataSet(values, "")
+
+            set.colors = colors
+            set.setDrawValues(false)
+            val dataSets = ArrayList<IBarDataSet>()
+
+            dataSets.add(set)
+
+            val data = BarData(dataSets)
+            data.setValueFormatter(StackedValueFormatter(false, "", 1))
+
+            chart.data = data
+
+            chart.setPinchZoom(false)
+            chart.isDoubleTapToZoomEnabled = false
+            chart.setDrawValueAboveBar(false)
+            chart.isHighlightFullBarEnabled = false
+            chart.axisLeft.setDrawGridLines(false)
+            chart.xAxis.setDrawGridLines(false)
+            chart.xAxis.position = XAxis.XAxisPosition.BOTTOM
+            chart.setDrawGridBackground(false)
+            chart.axisRight.isEnabled = false
+            chart.description.isEnabled = false
+            chart.legend.isEnabled = false
+
+            chart.xAxis.valueFormatter = object : ValueFormatter() {
+                override fun getFormattedValue(value: Float): String {
+                    return "${selectedPoi.affluence.keys.toList().get(value.toInt()).name.first()}"
+                }
+            }
+
+            chart.axisLeft.valueFormatter = object : ValueFormatter() {
+                override fun getFormattedValue(value: Float): String {
+                    return when (value) {
+                        5f -> "12:00"
+                        15f -> "18:00"
+                        25f -> "24:00"
+                        else -> ""
+                    }
+                }
+            }
+
+            chart.invalidate()
             Glide.with(this).load(selectedPoi.provider.imageUrl).into(preview)
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
         })
 
+    }
+
+    fun List<CrowdIndicator>.getColors() = map {
+        ContextCompat.getColor(
+            requireContext(), when (it) {
+                CrowdIndicator.Low -> R.color.colorLow
+                CrowdIndicator.Medium -> R.color.colorMid
+                CrowdIndicator.High -> R.color.colorHigh
+            }
+        )
     }
 
     @SuppressLint("MissingPermission")

@@ -127,6 +127,7 @@
                 app:layout_constraintTop_toBottomOf="@id/crowdness" />
 
             <HorizontalScrollView
+                android:id="@+id/group_chips"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scrollbars="none"
@@ -138,6 +139,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space8" />
             </HorizontalScrollView>
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/chart"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:clickable="false"
+                app:layout_constraintTop_toBottomOf="@id/group_chips" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
