@@ -61,6 +61,7 @@ Questa superficie viene poi caricata come configurazione del punto di interesse.
 Esempio di 9 persone in 36 metri quadrati, con un’area personale di 4 metri quadrati.
 
 Slots = 36 / 4 = 9
+
 Crowdedness = 9 / 9 = 1
 
 Il numero di persone viene rilevato tramite chiamata alle TIM Pedestrian APIs.
