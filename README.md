@@ -5,6 +5,7 @@ This project has been created during an Hackathon sponsored by Tim and Google.
 
 - [Demo video](https://github.com/MoonCoders/jammed/releases/download/v1.0.0/demo_video.mp4)
 - [Download Jammed Android APK](https://github.com/MoonCoders/jammed/releases/download/v1.0.0/jammed.apk)
+- [Presentazione](https://github.com/MoonCoders/jammed/releases/download/v1.0.0/JAMMED.pdf)
 
 ##  Requirements
 
