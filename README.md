@@ -2,7 +2,8 @@ Jammed
 
 ## Introduction
 This project has been created during an Hackathon sponsored by Tim and Google.
-
+For more information in may refer to this document written in italian.
+[https://docs.google.com/document/d/1uZzjwoVbKsHmvb2ShsnxI1l9FAPhCz5fRGQBGh1wWIY](https://docs.google.com/document/d/1uZzjwoVbKsHmvb2ShsnxI1l9FAPhCz5fRGQBGh1wWIY)
 
 ##  Requirements
 
