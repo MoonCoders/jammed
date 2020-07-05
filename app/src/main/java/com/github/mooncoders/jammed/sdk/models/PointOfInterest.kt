@@ -17,7 +17,7 @@ data class PointOfInterest(
     val longitude: Double,
     val title: String,
     val address: String,
-    val squareMeters: Double, // valore nominale secondo planimetria
+    val squareMeters: Double,
     val advertising: Advertising,
     val provider: Provider,
     val crowdIndicator: CrowdIndicator,
