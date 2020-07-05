@@ -177,8 +177,8 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         bottomSheetBehavior.addBottomSheetCallback(object :
             BottomSheetBehavior.BottomSheetCallback() {
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                if (preview.visibility == View.VISIBLE && slideOffset >= 0)
-                    preview.alpha = slideOffset
+                if (slideOffset >= 0.52) preview.alpha = slideOffset
+                else preview.alpha = 0f
             }
 
             override fun onStateChanged(bottomSheet: View, newState: Int) = Unit
@@ -295,8 +295,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
 
             Glide.with(this).load(selectedPoi.provider.imageUrl).into(preview)
-            bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-            preview.visibility = View.VISIBLE
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
         })
 
     }
