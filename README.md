@@ -56,3 +56,12 @@ Il server è InApp con le configurazioni cablate. Abbiamo mappato 4 punti di int
 
 <img width="631" alt="Schermata 2020-07-05 alle 18 58 11" src="https://user-images.githubusercontent.com/16792495/86537721-8ff7d100-bef1-11ea-8f12-d54ccfef6c14.png">
 
+Questa superficie viene poi caricata come configurazione del punto di interesse.
+
+Esempio di 9 persone in 36 metri quadrati, con un’area personale di 4 metri quadrati.
+
+Slots = 36 / 4 = 9
+Crowdedness = 9 / 9 = 1
+
+Il numero di persone viene rilevato tramite chiamata alle TIM Pedestrian APIs.
+
